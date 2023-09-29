@@ -305,7 +305,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
                             Spacer(modifier = Modifier.height(10.dp))
 
-                            Text("Mi robot vacuum", color = Color(0xFF090913), fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                            Text("Mi robot vacuum", color = Color(0xFF090913), fontSize = 14.sp, fontWeight = FontWeight.Bold)
                         }
                     }
 
@@ -368,8 +368,8 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
                             Spacer(modifier = Modifier.height(10.dp))
 
-                            Text("Lighting Bright", color = Color(0xFF090913), fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                            Text("Light", color = Color(0xFF090913), fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                            Text("Lighting Bright", color = Color(0xFF090913), fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                            Text("Led", color = Color(0xFF090913), fontSize = 14.sp, fontWeight = FontWeight.Bold)
                         }
                     }
 
@@ -409,7 +409,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
                             Spacer(modifier = Modifier.height(10.dp))
 
-                            Text("Mi robot vacuum", color = Color(0xFF090913), fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                            Text("Mi robot vacuum", color = Color(0xFF090913), fontSize = 14.sp, fontWeight = FontWeight.Bold)
                         }
                     }
                 }
