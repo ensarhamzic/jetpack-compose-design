@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -43,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
@@ -56,6 +58,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ensar_pma_dizajn.ui.theme.EnsarpmadizajnTheme
 import com.example.ensar_pma_dizajn.ui.theme.OnestFamily
+import sv.lib.squircleshape.CornerSmoothing
+import sv.lib.squircleshape.SquircleShape
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,10 +79,13 @@ class MainActivity : ComponentActivity() {
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
-            .background(Color(0xFF0C0E16))
+            .paint(
+                painterResource(id = R.drawable.livingroom_background),
+                contentScale = ContentScale.FillBounds,
+            )
             .background(
                 brush = Brush.verticalGradient(
-                    listOf(Color(0xFF232A42), Color(0xFF0C0E16), Color(0xFF0C0E16)),
+                    listOf(Color(0xFF232A42DD), Color(0xFF0C0E16), Color(0xFF0C0E16)),
                 ),
             )
             .fillMaxSize()
@@ -114,310 +121,613 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
             }
 
-
-            // Main control
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
-                    .clip(RoundedCornerShape(40.dp))
-                    .paint(
-                        painterResource(id = R.drawable.linije),
-                        contentScale = ContentScale.FillBounds,
-                    )
-                    .fillMaxWidth()
-                    .height(250.dp),
-                verticalArrangement = Arrangement.SpaceBetween
+                    .verticalScroll(rememberScrollState())
             ) {
-                // Top row (AC)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 20.dp, start = 16.dp, end = 16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    Text("AC", fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        modifier = Modifier.width(40.dp)
-                    ) {
-                        Box(modifier = Modifier
-                            .height(5.dp)
-                            .width(15.dp)
-                            .clip(RoundedCornerShape(20.dp))
-                            .background(Color(0xFFEB7853))
-                        )
-                        Box(modifier = Modifier
-                            .size(20.dp)
-                            .clip(CircleShape)
-                            .background(Color(0xFF141825))
-                        )
-                    }
-                }
 
 
-
-                // Middle row (Humidity, Temperature and controls)
-                Column(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-
-                        Image(
-                            painterResource(id = R.drawable.humidity_low),
-                            contentDescription = null,
-                            modifier = Modifier.height(15.dp)
-                        )
-                        Text(
-                            "55%"
-                        )
-                    }
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            Icons.Filled.KeyboardArrowDown,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .size(40.dp)
-                                .clip(CircleShape)
-                                .background(Color(0xFFF5CE94))
-                                .padding(5.dp)
-                        )
-
-                        Text(
-                            "25°",
-                            fontWeight = FontWeight.Light,
-                            fontFamily = OnestFamily,
-                            fontSize = 50.sp,
-                        )
-
-                        Icon(
-                            Icons.Filled.KeyboardArrowUp,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .size(40.dp)
-                                .clip(CircleShape)
-                                .background(Color(0xFFF5CE94))
-                                .padding(5.dp)
-                        )
-                    }
-                }
-
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 10.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painterResource(id = R.drawable.airwave),
-                        colorFilter = ColorFilter.tint(Color.White),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .padding(20.dp)
-                            .size(55.dp)
-                            .clip(RoundedCornerShape(20.dp))
-                            .background(Color(0xFF141825))
-                            .padding(10.dp)
-                    )
-                    Image(
-                        painterResource(id = R.drawable.snowflake),
-                        colorFilter = ColorFilter.tint(Color(0xFFD89153)),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .padding(20.dp)
-                            .size(55.dp)
-                            .clip(RoundedCornerShape(20.dp))
-                            .background(Color(0xFFF5CE94))
-                            .padding(10.dp)
-                    )
-                    Image(
-                        painterResource(id = R.drawable.sun),
-                        colorFilter = ColorFilter.tint(Color(0xFFD89153)),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .padding(20.dp)
-                            .size(55.dp)
-                            .clip(RoundedCornerShape(20.dp))
-                            .background(Color(0xFFF5CE94))
-                            .padding(10.dp)
-                    )
-                }
-            }
-
-            // Bottom row (Devices)
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                // Left column
+                // Main control
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth(0.5f)
-                        .padding(horizontal = 16.dp, vertical = 8.dp)
-                        .verticalScroll(rememberScrollState()),
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(40.dp))
-                            .background(color = Color(0xFFA1C6FF))
-                            .fillMaxWidth()
-                            .height(160.dp),
-                    ) {
-                        Column(
-                           horizontalAlignment = Alignment.CenterHorizontally,
-                        ) {
-                            Row(
-                                horizontalArrangement = Arrangement.End,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                            ) {
-                                Image(
-                                    painterResource(id = R.drawable.pause),
-                                    colorFilter = ColorFilter.tint(Color(0xFF090913)),
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .padding(top = 16.dp, end = 16.dp)
-                                        .size(20.dp)
-                                )
-                            }
-
-
-                            Image(
-                                painterResource(id = R.drawable.robot),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .height(70.dp)
+                        .padding(16.dp)
+                        .clip(
+                            SquircleShape(
+                                percent = 30,
+                                cornerSmoothing = CornerSmoothing.High
                             )
-
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            Text("Mi robot vacuum", color = Color(0xFF090913), fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                        )
+                        .paint(
+                            painterResource(id = R.drawable.linije),
+                            contentScale = ContentScale.FillBounds,
+                        )
+                        .fillMaxWidth()
+                        .height(250.dp),
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    // Top row (AC)
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 20.dp, start = 16.dp, end = 16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                    ) {
+                        Text("AC", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            modifier = Modifier.width(40.dp)
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .height(5.dp)
+                                    .width(15.dp)
+                                    .clip(RoundedCornerShape(20.dp))
+                                    .background(Color(0xFFEB7853))
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .size(20.dp)
+                                    .clip(CircleShape)
+                                    .background(Color(0xFF141825))
+                            )
                         }
                     }
 
-                    Box(
-                        modifier = Modifier
-                            .padding(top = 16.dp)
-                            .clip(RoundedCornerShape(40.dp))
-                            .background(color = Color(0xFFF29DA1))
-                            .fillMaxWidth()
-                            .height(170.dp),
+
+                    // Middle row (Humidity, Temperature and controls)
+                    Column(
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Row(
-                                horizontalArrangement = Arrangement.End,
+
+                            Image(
+                                painterResource(id = R.drawable.humidity_low),
+                                contentDescription = null,
+                                modifier = Modifier.height(15.dp)
+                            )
+                            Text(
+                                "55%"
+                            )
+                        }
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(
+                                Icons.Filled.KeyboardArrowDown,
+                                contentDescription = null,
                                 modifier = Modifier
-                                    .fillMaxWidth()
+                                    .padding(16.dp)
+                                    .size(40.dp)
+                                    .clip(CircleShape)
+                                    .background(Color(0xFFF5CE94))
+                                    .padding(5.dp)
+                            )
+
+                            Text(
+                                "25°",
+                                fontWeight = FontWeight.Light,
+                                fontFamily = OnestFamily,
+                                fontSize = 50.sp,
+                            )
+
+                            Icon(
+                                Icons.Filled.KeyboardArrowUp,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .padding(16.dp)
+                                    .size(40.dp)
+                                    .clip(CircleShape)
+                                    .background(Color(0xFFF5CE94))
+                                    .padding(5.dp)
+                            )
+                        }
+                    }
+
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 10.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Image(
+                            painterResource(id = R.drawable.airwave),
+                            colorFilter = ColorFilter.tint(Color.White),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .padding(20.dp)
+                                .size(55.dp)
+                                .clip(RoundedCornerShape(20.dp))
+                                .background(Color(0xFF141825))
+                                .padding(10.dp)
+                        )
+                        Image(
+                            painterResource(id = R.drawable.snowflake),
+                            colorFilter = ColorFilter.tint(Color(0xFFD89153)),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .padding(20.dp)
+                                .size(55.dp)
+                                .clip(RoundedCornerShape(20.dp))
+                                .background(Color(0xFFF5CE94))
+                                .padding(10.dp)
+                        )
+                        Image(
+                            painterResource(id = R.drawable.sun),
+                            colorFilter = ColorFilter.tint(Color(0xFFD89153)),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .padding(20.dp)
+                                .size(55.dp)
+                                .clip(RoundedCornerShape(20.dp))
+                                .background(Color(0xFFF5CE94))
+                                .padding(10.dp)
+                        )
+                    }
+                }
+
+                // Bottom row (Devices)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    // Left column
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth(0.5f)
+                            .padding(start = 16.dp, end = 8.dp, top = 8.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .clip(
+                                    SquircleShape(
+                                        percent = 40,
+                                        cornerSmoothing = CornerSmoothing.High
+                                    )
+                                )
+                                .background(color = Color(0xFFA1C6FF))
+                                .fillMaxWidth()
+                                .height(160.dp),
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
                             ) {
-                                Column(
+                                Row(
+                                    horizontalArrangement = Arrangement.End,
                                     modifier = Modifier
-                                        .padding(top = 16.dp, end = 20.dp)
+                                        .fillMaxWidth()
                                 ) {
-                                    Box(
+                                    Image(
+                                        painterResource(id = R.drawable.pause),
+                                        colorFilter = ColorFilter.tint(Color(0xFF090913)),
+                                        contentDescription = null,
                                         modifier = Modifier
-                                            .width(15.dp)
-                                            .clip(RoundedCornerShape(5.dp))
-                                            .height(5.dp)
-                                            .background(Color(0xFFC68289))
-                                    ) {}
+                                            .padding(top = 16.dp, end = 16.dp)
+                                            .size(20.dp)
+                                    )
+                                }
 
-                                    Box(
+
+                                Image(
+                                    painterResource(id = R.drawable.robot),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .height(70.dp)
+                                )
+
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Text(
+                                    "Mi robot vacuum",
+                                    color = Color(0xFF090913),
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                        Box(
+                            modifier = Modifier
+                                .padding(top = 16.dp)
+                                .clip(
+                                    SquircleShape(
+                                        percent = 40,
+                                        cornerSmoothing = CornerSmoothing.High
+                                    )
+                                )
+                                .background(color = Color(0xFFF29DA1))
+                                .fillMaxWidth()
+                                .height(170.dp),
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ) {
+                                Row(
+                                    horizontalArrangement = Arrangement.End,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                ) {
+                                    Column(
                                         modifier = Modifier
-                                            .padding(top = 2.dp)
-                                            .width(15.dp)
-                                            .clip(RoundedCornerShape(5.dp))
-                                            .height(5.dp)
-                                            .background(Color(0xFF151925))
-                                    ) {}
+                                            .padding(top = 16.dp, end = 20.dp)
+                                    ) {
+                                        Box(
+                                            modifier = Modifier
+                                                .width(15.dp)
+                                                .clip(RoundedCornerShape(5.dp))
+                                                .height(5.dp)
+                                                .background(Color(0xFFC68289))
+                                        ) {}
 
-                                    Box(
+                                        Box(
+                                            modifier = Modifier
+                                                .padding(top = 2.dp)
+                                                .width(15.dp)
+                                                .clip(RoundedCornerShape(5.dp))
+                                                .height(5.dp)
+                                                .background(Color(0xFF151925))
+                                        ) {}
+
+                                        Box(
+                                            modifier = Modifier
+                                                .padding(top = 2.dp)
+                                                .width(15.dp)
+                                                .clip(RoundedCornerShape(5.dp))
+                                                .height(5.dp)
+                                                .background(Color(0xFF151925))
+                                        ) {}
+
+                                    }
+                                }
+
+
+                                Image(
+                                    painterResource(id = R.drawable.night_light),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .height(70.dp)
+                                )
+
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Text(
+                                    "Lighting Bright",
+                                    color = Color(0xFF090913),
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text(
+                                    "Led",
+                                    color = Color(0xFF090913),
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+
+                        Box(
+                            modifier = Modifier
+                                .padding(top = 15.dp)
+                                .clip(
+                                    SquircleShape(
+                                        percent = 40,
+                                        cornerSmoothing = CornerSmoothing.High
+                                    )
+                                )
+                                .background(color = Color(0xFF373C53))
+                                .fillMaxWidth()
+                                .height(160.dp),
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ) {
+                                Row(
+                                    horizontalArrangement = Arrangement.End,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                ) {
+                                    Image(
+                                        painterResource(id = R.drawable.pause),
+                                        colorFilter = ColorFilter.tint(Color.White),
+                                        contentDescription = null,
                                         modifier = Modifier
-                                            .padding(top = 2.dp)
-                                            .width(15.dp)
-                                            .clip(RoundedCornerShape(5.dp))
-                                            .height(5.dp)
-                                            .background(Color(0xFF151925))
-                                    ) {}
+                                            .padding(top = 16.dp, end = 16.dp)
+                                            .size(20.dp)
+                                    )
+                                }
 
+
+                                Image(
+                                    painterResource(id = R.drawable.robot),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .height(70.dp)
+                                )
+
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Text(
+                                    "Mi robot vacuum",
+                                    color = Color.White,
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+                    }
+
+                    // Right column
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 8.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .clip(
+                                    SquircleShape(
+                                        percent = 40,
+                                        cornerSmoothing = CornerSmoothing.High
+                                    )
+                                )
+                                .background(color = Color(0xFF373C53))
+                                .fillMaxWidth()
+                                .height(220.dp),
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ) {
+                                Row(
+                                    horizontalArrangement = Arrangement.End,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                ) {
+                                    Image(
+                                        painterResource(id = R.drawable.power),
+                                        colorFilter = ColorFilter.tint(Color.White),
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .padding(top = 16.dp, end = 16.dp)
+                                            .size(20.dp)
+                                    )
+                                }
+
+
+                                Image(
+                                    painterResource(id = R.drawable.speaker),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .height(70.dp)
+                                )
+
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Text(
+                                    "Portable speaker",
+                                    color = Color.White,
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+
+                                Box(
+                                    modifier = Modifier
+                                        .padding(top = 20.dp, start = 15.dp, end = 15.dp)
+                                        .clip(RoundedCornerShape(50))
+                                        .background(Color(0xFF141825))
+                                        .height(55.dp)
+                                        .fillMaxWidth()
+
+                                ) {
+
+                                    Row(
+                                        modifier = Modifier
+                                            .padding(horizontal = 10.dp)
+                                            .fillMaxHeight(),
+                                        verticalAlignment = Alignment.CenterVertically,
+                                    ) {
+                                        Image(
+                                            painterResource(id = R.drawable.music),
+                                            colorFilter = ColorFilter.tint(Color(0xFF3A4057)),
+                                            contentDescription = null,
+                                            modifier = Modifier
+                                                .height(40.dp)
+                                        )
+
+                                        Column() {
+                                            Text(
+                                                "For a feeling",
+                                                fontSize = 12.sp,
+                                                color = Color(0xFF777D94)
+                                            )
+                                            Text(
+                                                "Artbat",
+                                                color = Color(0xFF3A4057),
+                                                fontSize = 12.sp
+                                            )
+                                        }
+                                    }
                                 }
                             }
-
-
-                            Image(
-                                painterResource(id = R.drawable.night_light),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .height(70.dp)
-                            )
-
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            Text("Lighting Bright", color = Color(0xFF090913), fontSize = 14.sp, fontWeight = FontWeight.Bold)
-                            Text("Led", color = Color(0xFF090913), fontSize = 14.sp, fontWeight = FontWeight.Bold)
                         }
-                    }
 
-                    Box(
-                        modifier = Modifier
-                            .padding(top = 15.dp)
-                            .clip(RoundedCornerShape(40.dp))
-                            .background(color = Color(0xFF373C53))
-                            .fillMaxWidth()
-                            .height(160.dp),
-                    ) {
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
+                        Box(
+                            modifier = Modifier
+                                .padding(top = 16.dp)
+                                .clip(
+                                    SquircleShape(
+                                        percent = 40,
+                                        cornerSmoothing = CornerSmoothing.High
+                                    )
+                                )
+                                .background(color = Color(0xFF9B99F5))
+                                .fillMaxWidth()
+                                .height(160.dp),
                         ) {
-                            Row(
-                                horizontalArrangement = Arrangement.End,
-                                modifier = Modifier
-                                    .fillMaxWidth()
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
                             ) {
+                                Row(
+                                    horizontalArrangement = Arrangement.End,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                ) {
+                                    Image(
+                                        painterResource(id = R.drawable.wifi),
+                                        colorFilter = ColorFilter.tint(Color(0xFF090913)),
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .padding(top = 16.dp, end = 16.dp)
+                                            .size(20.dp)
+                                    )
+                                }
+
+
                                 Image(
-                                    painterResource(id = R.drawable.pause),
-                                    colorFilter = ColorFilter.tint(Color.White),
+                                    painterResource(id = R.drawable.router),
                                     contentDescription = null,
                                     modifier = Modifier
-                                        .padding(top = 16.dp, end = 16.dp)
-                                        .size(20.dp)
+                                        .height(70.dp)
+                                )
+
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Text(
+                                    "Xiaomi 4C Wi-Fi",
+                                    color = Color.White,
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
                                 )
                             }
+                        }
+
+                        Box(
+                            modifier = Modifier
+                                .padding(top = 16.dp)
+                                .clip(
+                                    SquircleShape(
+                                        percent = 40,
+                                        cornerSmoothing = CornerSmoothing.High
+                                    )
+                                )
+                                .background(color = Color(0xFFF29DA1))
+                                .fillMaxWidth()
+                                .height(170.dp),
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                            ) {
+                                Row(
+                                    horizontalArrangement = Arrangement.End,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                ) {
+                                    Column(
+                                        modifier = Modifier
+                                            .padding(top = 16.dp, end = 20.dp)
+                                    ) {
+                                        Box(
+                                            modifier = Modifier
+                                                .width(15.dp)
+                                                .clip(RoundedCornerShape(5.dp))
+                                                .height(5.dp)
+                                                .background(Color(0xFFC68289))
+                                        ) {}
+
+                                        Box(
+                                            modifier = Modifier
+                                                .padding(top = 2.dp)
+                                                .width(15.dp)
+                                                .clip(RoundedCornerShape(5.dp))
+                                                .height(5.dp)
+                                                .background(Color(0xFF151925))
+                                        ) {}
+
+                                        Box(
+                                            modifier = Modifier
+                                                .padding(top = 2.dp)
+                                                .width(15.dp)
+                                                .clip(RoundedCornerShape(5.dp))
+                                                .height(5.dp)
+                                                .background(Color(0xFF151925))
+                                        ) {}
+
+                                    }
+                                }
 
 
-                            Image(
-                                painterResource(id = R.drawable.robot),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .height(70.dp)
-                            )
+                                Image(
+                                    painterResource(id = R.drawable.night_light),
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .height(70.dp)
+                                )
 
-                            Spacer(modifier = Modifier.height(10.dp))
+                                Spacer(modifier = Modifier.height(10.dp))
 
-                            Text("Mi robot vacuum", color = Color(0xFF090913), fontSize = 14.sp, fontWeight = FontWeight.Bold)
+                                Text(
+                                    "Lighting Bright",
+                                    color = Color(0xFF090913),
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text(
+                                    "Led",
+                                    color = Color(0xFF090913),
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
                         }
                     }
                 }
+            }
+        }
 
-                // Right column
-                Column {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom,
+            modifier = Modifier
+                .padding(bottom = 10.dp)
+                .fillMaxSize()
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(
+                        vertical = 10.dp,
+                        horizontal = 20.dp
+                    )
+                    .clip(RoundedCornerShape(50.dp))
+                    .background(Color(0xFF141825))
+                    .width(130.dp)
+                    .height(60.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+                Image(
+                    painterResource(id = R.drawable.home),
+                    colorFilter = ColorFilter.tint(Color.White),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .height(30.dp)
+                )
 
-                }
+                Image(
+                    painterResource(id = R.drawable.settings),
+                    colorFilter = ColorFilter.tint(Color(0xFF797B83)),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .height(50.dp)
+                )
             }
         }
     }
