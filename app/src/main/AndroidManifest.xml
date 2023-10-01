@@ -13,13 +13,18 @@
         android:theme="@style/Theme.Ensarpmadizajn"
         tools:targetApi="31">
         <activity
+            android:name=".AirConditionerActivity"
+            android:exported="true"
+            android:label="@string/title_activity_air_conditioner"
+            android:theme="@style/Theme.Ensarpmadizajn">
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Ensarpmadizajn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

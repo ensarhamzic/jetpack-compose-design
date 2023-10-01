@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Ensar-pma-dizajn</string>
+    <string name="title_activity_air_conditioner">AirConditionerActivity</string>
 </resources>
